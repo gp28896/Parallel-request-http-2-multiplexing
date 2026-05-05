@@ -1,5 +1,5 @@
 # Parallel-request-http-2-multiplexing
-A concise Jupyter Notebook that demonstrates sending multiple HTTP/2 requests in parallel using a single multiplexed connection with httpx and asyncio.
+A Jupyter Notebook that demonstrates sending multiple HTTP/2 requests in parallel using a single multiplexed connection with httpx and asyncio.
 HTTP/2 Multiplexing Demo — Jupyter Notebook
 
 Multiplexing (networking context) is the ability to carry multiple independent logical streams of data concurrently over a single underlying transport connection. Key points:
