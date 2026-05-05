@@ -59,7 +59,7 @@ async def main_demo():
 
 # Run the demo (in a Jupyter cell use: asyncio.run(main_demo()))
 # In notebook, do:
-await main_demo()
+# await main_demo()
 
 
 # Example snippet to return HTTP version
