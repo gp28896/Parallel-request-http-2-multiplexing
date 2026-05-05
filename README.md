@@ -2,6 +2,25 @@
 A concise Jupyter Notebook that demonstrates sending multiple HTTP/2 requests in parallel using a single multiplexed connection with httpx and asyncio.
 HTTP/2 Multiplexing Demo — Jupyter Notebook
 
+Multiplexing (networking context) is the ability to carry multiple independent logical streams of data concurrently over a single underlying transport connection. Key points:
+
+    What it does: lets many requests/responses share one TCP/TLS connection so they can be sent and received interleaved without waiting for each other to finish.
+    Why it matters: reduces connection overhead (fewer TCP/TLS handshakes), improves latency for many small requests, and increases throughput by better utilizing a single connection.
+    How it works (HTTP/2 example):
+        A connection is split into independent streams, each with a unique stream identifier.
+        Frames (units of data/control) for different streams are interleaved on the wire and carry stream IDs so endpoints can demultiplex them.
+        Flow control and prioritization let endpoints limit and order resource use per stream.
+    Benefits:
+        Lower connection setup cost, fewer sockets, better reuse of TLS session.
+        Eliminates head-of-line blocking at the HTTP request layer (requests don’t need to wait for prior responses) — though TCP-level head-of-line
+        blocking still exists.
+        Enables server push and request prioritization.
+    Trade-offs & considerations:
+        Complexity: protocol and implementation complexity increases (stream management, flow control, prioritization).
+        TCP-level head-of-line blocking still applies; QUIC (used by HTTP/3) avoids that by operating over UDP with independent packet streams.
+        Multiplexing is per-origin/connection — requests to different hosts require separate connections.
+    When to use: workloads with many small, concurrent requests to the same origin (e.g., web assets, API fan-out) benefit most.
+
 A concise Jupyter Notebook that demonstrates sending multiple HTTP/2 requests in parallel using a single multiplexed connection with httpx and asyncio.
 Features
 
